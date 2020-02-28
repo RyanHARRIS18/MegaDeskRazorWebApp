@@ -35,7 +35,7 @@ namespace MegaDeskWeb2
                 return NotFound();
             }
 
-            DeskQuote = await _context.DeskQuote.FindAsync(id);
+            DeskQuote = await _context.DeskQuote.FirstOrDefaultAsync(m => m.DeskQuoteId == id);
 
             if (DeskQuote == null)
             {
@@ -44,25 +44,34 @@ namespace MegaDeskWeb2
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync()
         {
-            var studentToUpdate = await _context.DeskQuote.FindAsync(id);
-
-            if (studentToUpdate == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return Page();
             }
 
-            if (await TryUpdateModelAsync<DeskQuote>(
-                studentToUpdate,
-                "deskquote",
-                s => s.DeskId, s => s.Date, s => s.CustomerName, s => s.DeliveryId))
+            _context.Attach(DeskQuote).State = EntityState.Modified;
+
+            try
             {
+
+                DeskQuote.QuotePrice = DeskQuote.GetQuotePrice(_context);
                 await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DeskQuoteExists(DeskQuote.DeskQuoteId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            return Page();
+            return RedirectToPage("./Index");
         }
 
         private bool DeskQuoteExists(int id)
