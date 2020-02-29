@@ -43,8 +43,8 @@ namespace MegaDeskWeb2.Models
                         },
                          new MegaDeskRazorPages.Models.DesktopMaterial
                          {
-                            DesktopMaterialName = "Oak",
-                            Price = 200
+                            DesktopMaterialName = "Rosewood",
+                            Price = 300
                         }
                     );
 

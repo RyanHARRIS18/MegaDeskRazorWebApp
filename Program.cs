@@ -20,7 +20,7 @@ namespace MegaDeskWeb2
 
                 try
                 {
-                    var context = services.
+                    var context=services.
                         GetRequiredService<Data.MegaDeskWeb2Context>();
                     context.Database.Migrate();
                     SeedData.Initialize(services);

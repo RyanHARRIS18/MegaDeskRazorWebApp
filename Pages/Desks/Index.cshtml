@@ -11,7 +11,7 @@
 </p>
 <form>
     <p>
-        Customer: <input type="text" asp-for="SearchString" />
+        Customer: <input type="text" asp-for="searchString" />
 
         <input type="submit" value="Filter" />
     </p>
@@ -21,28 +21,20 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DeskQuote[0].CustomerName)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">
+                    @Html.DisplayNameFor(model => model.DeskQuote[0].CustomerName)
+                </a>
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.DeskQuote[0].Desk.Width)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeskQuote[0].Desk.Depth)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeskQuote[0].Desk.Drawers)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeskQuote[0].Desk.DesktopMaterial)
-            </th>*@
-            <th>
                 @Html.DisplayNameFor(model => model.DeskQuote[0].Delivery)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.DeskQuote[0].QuotePrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DeskQuote[0].Date)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort">
+                    @Html.DisplayNameFor(model => model.DeskQuote[0].Date)
+                </a>
             </th>
             <th></th>
         </tr>
@@ -55,20 +47,8 @@
                     @Html.DisplayFor(modelItem => item.CustomerName)
                 </td>
                 @*<td>
-                    @Html.DisplayFor(modelItem => item.Desk.Width)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Desk.Depth)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Desk.Drawers)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Desk.DesktopMaterial.DesktopMaterialName)
-                </td>*@
-                <td>
                     @Html.DisplayFor(modelItem => item.Delivery.DeliveryName)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.QuotePrice)
                 </td>
@@ -77,7 +57,7 @@
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.DeskQuoteId">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.DeskQuoteId">Details</a> |
+                    @*<a asp-page="./Details" asp-route-id="@item.DeskQuoteId">Details</a> |*@
                     <a asp-page="./Delete" asp-route-id="@item.DeskQuoteId">Delete</a>
                 </td>
             </tr>
